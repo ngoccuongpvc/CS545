@@ -1,6 +1,5 @@
 package edu.miu.lab03.controller;
 
-import edu.miu.lab03.entity.dtos.CommentDto;
 import edu.miu.lab03.entity.dtos.PostDto;
 import edu.miu.lab03.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +49,9 @@ public class PostController {
         postService.updatePost(id, postDto);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/{id}/comments")
-    public void commentPost(@PathVariable long id, @RequestBody CommentDto commentDto) {
-        final PostDto post = postService.findPostById(id);
-
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/filter/title/{title}")
+    public List<PostDto> getPostsByTitle(@PathVariable String title) {
+        return postService.findPostsByTitle(title);
     }
 }

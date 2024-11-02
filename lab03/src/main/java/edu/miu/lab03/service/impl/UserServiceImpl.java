@@ -43,7 +43,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteUser(Long id) {
+        userRepo.deleteById(id);
+    }
+
+    @Override
     public List<PostDto> findUserPosts(Long id) {
         return Objects.requireNonNull(userRepo.findById(id).orElse(null)).getPosts().stream().map(user -> modelMapper.map(user, PostDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDto> findUsersByNumberOfPost(int num) {
+        return userRepo.findAllByNumberOfPost(num).stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
     }
 }

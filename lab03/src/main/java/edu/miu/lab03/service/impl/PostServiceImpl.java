@@ -32,6 +32,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<PostDto> findPostsByTitle(String title) {
+        return postRepo.getPostsByTitleContaining(title).stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
     public PostDto findPostById(long id) {
         return modelMapper.map(postRepo.findById(id), PostDto.class);
     }

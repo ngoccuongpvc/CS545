@@ -33,6 +33,12 @@ public class UserController {
         return userService.findUserById(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable long id) {
+        userService.deleteUser(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto userDto) {
@@ -43,5 +49,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<PostDto> getUserPosts(@PathVariable long id) {
         return userService.findUserPosts(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/filter/posts/{count}")
+    public List<UserDto> getUsersByNumberOfPosts(@PathVariable int count) {
+        return userService.findUsersByNumberOfPost(count);
     }
 }
